@@ -1,3 +1,14 @@
 .App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  background-color: black;
+}
+
+.App-h1 {
+  color: gold;
+  margin-bottom: 50px;
 }

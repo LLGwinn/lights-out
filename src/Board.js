@@ -47,7 +47,21 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
 
   function hasWon() {
     // TODO: check the board in state to determine whether the player has won.
-    return board.every( (cell) => cell === false);
+    // for (let row of board) {
+    //   console.log('row:', row)
+    //   for (let cell of row) {
+    //     console.log('cell:', cell)
+    //   }
+    // }
+    let lights = [];
+
+    board.forEach( row => {
+      row.forEach (cell => {
+        if (cell === true) lights.push(cell);
+      })
+    })
+
+    return (lights.length === 0)
   }
 
   function flipCellsAround(coord) {
@@ -66,7 +80,7 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
 
       // TODO: in the copy, flip this cell and the cells around it
       const cellsToFlip = [[y,x], [y+1, x], [y-1, x], [y, x+1], [y, x-1]];
-      cellsToFlip.forEach( (cell) => flipCell(cell[0], cell[1]), newBoard);
+      cellsToFlip.forEach( (cell) => flipCell(cell[0], cell[1], newBoard));
 
       // TODO: return the copy
       return newBoard;
@@ -78,15 +92,24 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   // TODO
   // make table board
   return (
+    hasWon() ?
+    <div className='Board-winner'>
+      YOU WIN!
+    </div>
+    :
     <div>
       <table>
         <tbody>
           {
-          board.map( (row, ridx) => {
+          board.map( (row, yidx) => {
             return (
-              <tr key={ridx}>
-                {row.map( (cell, cidx) => {
-                  return <Cell key={`${ridx}-${cidx}`} isLit={cell} />
+              <tr key={yidx}>
+                {row.map( (cell, xidx) => {
+                  let coords = `${yidx}-${xidx}`;
+                  return <Cell key={coords} 
+                               isLit={cell} 
+                               coords={coords} 
+                               flipCellsAroundMe={flipCellsAround}/>
                   }
                 )}
               </tr>

@@ -1,3 +1,9 @@
 .Board {
-  margin: 0 auto;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.Board-winner {
+  font-size: 3rem;
+  color: green;
 }
